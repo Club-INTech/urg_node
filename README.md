@@ -1,9 +1,9 @@
-urg_node
+# Urg_node for LaserScan Visualisation
 ===================
 
-#### LaserScan Visualization
+## LaserScan Visualization
 
-Until the launch API is sorted out, there are two ways to view the laserscan in RViz:
+Until the launch API is sorted out, there is a way to view the laserscan in RViz:
 
 1) use the static_transform_publisher tool from tf2_ros to publish a static transform for a fixed frame simultaneously with rviz and urg_node.
 
@@ -13,20 +13,8 @@ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 "world" "laser"
 
 where "laser" is the frame id, which you can set in your urg_node yaml file
 
-2) Run the robot_state_publisher along with a urdf file so that a fixed frame can be loaded in rviz
 
-```
-ros2 run robot_state_publisher robot_state_publisher <path to urdf file>
-```
-
-A urdf file is already included and if you have succesfully ran an `colcon build`, the path to urdf file will be:
-
-```
-<path to ros2_ws>/install/share/urg_node/launch/hokuyo_laser.urdf
-```
-
-
-#### Parameters
+## Parameters
 
 A YAML file example is included in the launch folder, all the available parameters are listed in it.
 For example (note that the serial_port is commented because you can't set a param with an empty string):
@@ -56,8 +44,10 @@ urg_node:
 To give parameters to urg_node :
 
 ```
-ros2 run urg_node urg_node_driver __params:=path/to/my/file.yaml
+ros2 run urg_node urg_node_driver --ros-args --params-file <your_config.yaml>
 ```
+
+When you build the package, default config is located in launch folder. The default ethernet config is called **urg_node_ethernet.yaml**
 
 You can reconfigure parameters while the node is launched.
 For now, you can only reconfigure the following parameters:
@@ -77,7 +67,7 @@ For example to reconfigure the cluster parameter using command line :
 ros2 param set /urg_node cluster 1
 ```
 
-#### How to use the ust-20lx (and other ethernet based laser)
+## Configure your eth device
 
 To use ust-20lx, you need to be on the same subnet as the laser.
 The ust-20lx default ip is 192.168.0.10, so you might need to change your ip, for something on the same subnet.
@@ -112,7 +102,7 @@ If you don't receive any answer, you might have a connection problem or the IP o
 - Once you can ping the laser, you can launch the urg_node_driver:
 
 ```
-ros2 run urg_node urg_node_driver __params:=path/to/my/file.yaml
+ros2 run urg_node urg_node_driver --ros-args --params-file ./install/urg_node/share/urg_node/launch/urg_node_ethernet.yaml
 ```
 
 then the static publisher:
