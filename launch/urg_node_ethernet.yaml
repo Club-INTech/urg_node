@@ -8,8 +8,8 @@ urg_node:
     laser_frame_id: "laser"
     calibrate_time: false
     default_user_latency: 0.0
-    diagnostics_tolerance: 0.05
-    diagnostics_window_time: 5.0
+    diagnostics_tolerance: 0.2
+    diagnostics_window_time: 0.5
     error_limit: 4
     get_detailed_status: false
     publish_intensity: false
